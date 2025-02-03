@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} %sets the font
+\usepackage{amsmath}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{xcolor}
+\pagecolor[rgb]{0,0,0} %black
+\color[rgb]{0.9,0.9,0.9} %grey
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\urlstyle{same}
+\title{Network Science Notes}
+\author{Ben Hizak}
+\date{January 2025}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+\maketitle 
+
+
+
+\section{Terms}
+
+\subsection{Graph Elements / Notation}
+
+\begin{table}
+\centering
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Network Science}}& \multicolumn{2}{|c|}{\textbf{Graph Theory}}\\
+\hline
+
+\hline
+Network  && Graph $G = (V, E)$ &\\
+\hline
+Node $N$ &$n$ Nodes& Vertex $u \in V$ &$n$ Vertices\\
+\hline
+Link $L$ &$m$ Links& Edge $(u, v) \in E$  &$m$ Edges\\
+\hline
+
+\end{tabular}
+
+\end{table}
+
+Terms Network Science vs. Graph Theory
+
+\section{Calculating Random Walks}
+
+\subsubsection{\textbf{Key Definitions}:}
+
+\begin{enumerate}
+    \item \textbf{Graph Representation}:
+    \begin{itemize}
+        \item Let the graph have $n$ nodes, and the weight of the edge between nodes $i$ and $j$ is $w_{ij}$ 
+        \item The graph is undirected, so $w_{ij}$ = $w_{ji}$ 
+    \end{itemize}
+    \item \textbf{Weight Matrix ($W$)}:
+$W$ is an $n\times n$  matrix where$ W[i,j]=w_{ij}$, the weight of the edge between $i$ and $j$. If there is no edge, $W[i,j]=0$.
+    \item \textbf{Degree Matrix ($D$)}:
+$D$ is a diagonal matrix where $D[i, i]$$ = \sum\limits_{j} W[i, j]$ is the total weight of the edges connected to node $i$.
+    \item \textbf{Transition Matrix ($P$)}:   $P=D^{-1}W$ where $P[i,j]$ is the probability of transitioning from node $i$ to node $j$ in one step.
+    \item \textbf{Initial State ($\pi_0$)}:
+For a uniform starting distribution, $\pi_0=\frac{1}{n}\textbf{1}$ where $\textbf{1}$ is an $n$-dimensional vector of all 1s.
+\subsection{Steps to Compute the Random Walk:}
+\paragraph{1. \textbf{Construct the Transition Matrix ($P$)}:}
+Compute $P=D^{-1}W$ . This normalizes the rows of $W$ so that the sum of probabilities in each row is 1.
+\paragraph{2. \textbf{Perform the Random Walk}:}
+\begin{itemize}
+    \item At each time step $t$, the state distribution $\pi_t$ is updated as: $\pi_t=\pi_{t-1}P$ 
+    \item For $t=1,2,3,\ldots$ repeat the matrix multiplication to compute the distribution of the random walk over time.
+\end{itemize}
+\paragraph{3. \textbf{Stationary Distribution (Long-Term Behavior)}:}
+\begin{itemize}
+    \item For large $t$, the random walk converges to a \textbf{stationary distribution} $\pi_\infty$, satisfying: $\pi_\infty P=\pi_\infty$
+    \item Solve for  $\pi_{\infty}P=\pi_{\infty}$ as the dominant eigenvector of $P$ corresponding to eigenvalue $1$, normalized so that $\sum\limits_i^{}\pi_{\infty}[i] = 1$.
+\end{itemize}
+ 
+\end{enumerate}
+
+\section{Power Law Networks}
+This means that the \textbf{maximum degree in a power-law network increases as a power-law of the network size n. If $\alpha=3$ the maximum degree increases with the square-root of n.} 
+$k_{max} = k_{min} \, n^{1/(\alpha-1)}$
+\section{Resources}
+\href{https://gatech.instructure.com/courses/433540/modules}{Course Modules}
+\href{https://cazabetremy.fr/Teaching/CN2021/CheatSheet/CN_CS_introduction.pdf}{Cheatsheet}
+\href{https://www.albany.edu/~ravi/pdfs/sol_hw2.pdf}{CSI 445/660 – Network Science – Fall 2015}
+
+\end{document}

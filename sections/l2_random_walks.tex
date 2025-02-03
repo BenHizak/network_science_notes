@@ -1,0 +1,31 @@
+\section{Lesson2: Random Walks}
+\subsection{\textbf{Key Definitions}:}
+\begin{description}
+    \item [Graph Representation]:
+    \begin{itemize}
+        \item Let the graph have $n$ nodes, and the weight of the edge between nodes $i$ and $j$ is $w_{ij}$ 
+        \item The graph is undirected, so $w_{ij}$ = $w_{ji}$ 
+    \end{itemize}
+    \item [Weight Matrix ($W$)]:
+$W$ is an $n\times n$  matrix where$ W[i,j]=w_{ij}$, the weight of the edge between $i$ and $j$. If there is no edge, $W[i,j]=0$.
+    \item [Degree Matrix ($D$)]:
+$D$ is a diagonal matrix where $D[i, i]$$ = \sum\limits_{j} W[i, j]$ is the total weight of the edges connected to node $i$.
+    \item [Transition Matrix ($P$)]  $P=D^{-1}W$ where $P[i,j]$ is the probability of transitioning from node $i$ to node $j$ in one step.
+    \item [Initial State ($\pi_0$)]:
+For a uniform starting distribution, $\pi_0=\frac{1}{n}\textbf{1}$ where $\textbf{1}$ is an $n$-dimensional vector of all 1s.
+\end{description}
+
+\subsection{Steps to Compute the Random Walk:}
+\paragraph{1. \textbf{Construct the Transition Matrix ($P$)}:}
+Compute $P=D^{-1}W$ . This normalizes the rows of $W$ so that the sum of probabilities in each row is 1.
+\paragraph{2. \textbf{Perform the Random Walk}:}
+\begin{itemize}
+    \item At each time step $t$, the state distribution $\pi_t$ is updated as: $\pi_t=\pi_{t-1}P$ 
+    \item For $t=1,2,3,\ldots$ repeat the matrix multiplication to compute the distribution of the random walk over time.
+\end{itemize}
+
+\paragraph{3. \textbf{Stationary Distribution (Long-Term Behavior)}:}
+\begin{itemize}
+    \item For large $t$, the random walk converges to a \textbf{stationary distribution} $\pi_\infty$, satisfying: $\pi_\infty P=\pi_\infty$
+    \item Solve for  $\pi_{\infty}P=\pi_{\infty}$ as the dominant eigenvector of $P$ corresponding to eigenvalue $1$, normalized so that $\sum\limits_i^{}\pi_{\infty}[i] = 1$.
+\end{itemize}

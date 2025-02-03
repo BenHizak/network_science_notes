@@ -1,0 +1,159 @@
+\documentclass[crop=false]{standalone}
+\usepackage{emoji}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{blindtext}
+
+\begin{document}
+
+
+\section{Lesson 4: Power Law Networks}
+Lesson 4
+
+Most real life networks resemble a "Power Law" distribution. These are sometimes called "Scale Free" referring to the idea that when zooming into the network, they look the same as when they are zoomed out.
+
+\textbf{Definition:
+}a "Power-law network" has the following degree distribution:
+$p_k = c \, k^{- \alpha}$ where $\alpha>0$ and $c$  is a normalizing factor such that $\sum\limits_{k=k_{min}}^{\infty} p_k =1$.
+
+
+
+
+\subsection{Empirical Networks vs ideal power law}
+In practice the degree distribution is not an ideal power-law throughout the entire range. (see figure 4.23 from networkscience.com)
+\begin{itemize}
+    \item Lower Values are bound. This is called "Low Degree Saturation" and means that you typically observe a minimum K, which is called $k_{sat}$ or $k_0$
+    \item Higher Values are bound. This can happen because of some limit. For example, physical routers will have a finite number of cables that can go into them. This is sometimes called $k_{sat}$
+\end{itemize}
+
+
+\subsection{Relation Between $\alpha$ and Network Structure}
+
+\begin{itemize}
+    \item $\alpha$  - the \textbf{power-law exponent} -  controls the shape of the degree distribution: small $\alpha$ leads to more hubs, large $\alpha$ leads to more homogeneous networks.
+The CDF exponent is $\alpha−1$ due to cumulative summation.
+\end{itemize}
+\begin{itemize}
+    \item For $2 \leq \alpha \leq 3$:\\ Networks are scale-free and ultra-connected, meaning some nodes (hubs) dominate.
+        \begin{itemize}
+            \item The average degree $\overline{k}$ is finite meaning the network remains stable (what does this mean, were' talking about a static network) 
+            $\overline{k^2}$, $\overline{k^3}$, $\overline{k^4}$ and higher powers diverge  implying extreme variability in node connectivity.
+        \end{itemize}
+        \begin{itemize}
+            \item Many real-world systems (e.g., social networks, internet topology) fall in this range.
+        \end{itemize}
+    \item For $3 < \alpha$:
+    \begin{itemize}
+        \item The probability of large-degree nodes drops faster, leading to a more homogeneous network.
+        \item The second moment $\overline{k^2}$ is finite, making failures and attacks less disruptive. (TODO: why is this true?)
+    \end{itemize}
+    \item For $\alpha \leq 2$:
+    \begin{itemize}
+        \item The distribution becomes too broad, meaning very high-degree nodes dominate.
+    \end{itemize}
+    \begin{itemize}
+        \item This is unrealistic in real-world systems because physical or resource constraints limit the number of connections.
+    \end{itemize}
+\end{itemize}
+\subsection{Notes: }
+\begin{itemize}
+    \item Plotting Power Law Networks should be done with Log-Log charts or Complementary Cumulative Distribution Function (\emoji{pushpin} TODO: Define C-CDF)
+    \item in Power Law C-CDF exponent is 1 below the power-law exponent
+    \item Power Law distribution is not Poisson
+    \item Empirically $2<\alpha<3$
+    \item $P_k$ values usually fall \textbf{far} from the mean
+    \item in directed graphs, in-degree and out-degree distributions can vary. They do not both have to follow power law.
+    \item $k_{max} = k_{min} \cdot n^{1/(\alpha-1)}​$ This means that the \textbf{maximum degree in a power-law network increases as a power-law of the network size n. If $\alpha=3$ the maximum degree increases with the square-root of n.} 
+    \item Examples: Roads to cities are Poisson. Airport hub flights are Power Law.
+    \item power-law networks are more robust to random failures than Poisson networks – but they are also more sensitive to targeted attacks than Poisson networks. ​
+    \item Average neighbor degree for Neutral Network $\bar{k}_{n} = \bar{k} + \frac{\sigma^2_k}{\bar{k}}​$
+
+\end{itemize}
+
+\subsection{Generating Networks with Arbitrary Degree Distribution}
+\subsubsection{Degree-preserving Randomization}
+\begin{itemize}
+    \item To perform “degree-preserving randomization”, we can pick two random edges$(S1, T1)$ and$ (S2, T2)$ and rewire them to $(S1,T2)$ and $(S2, T1)$. Note that\textbf{ this approach preserves the degree of every node}. This approach is repeated until we have rewired each edge at least once.
+
+    \item (\emoji{pushpin} TODO Link Selection Model)
+\end{itemize}
+\textbf{Preferential Attachment Model (“Barabási-Albert” model)}
+
+Suppose that the new node arrives at a point in time $t$, and let $k_i(t)$ be the degree of node $i$ at that time. The probability that the new node will connect to node $i$ is:​
+
+$\Pi_i(t) = \frac{k_i(t)}{\sum \limits _{j=1}^t k_j(t)} = \frac{k_i(t)}{2 m t}$
+
+This approach produces power-law networks with an exponent $\alpha=3$
+\subsubsection{configuration model}
+How can we create a synthetic network that has a given degree distribution?
+Constructions
+\begin{itemize}
+    \item n = the number of nodes
+    \item $k_i$ the degree of each node $i$
+    \item Randomly select two node "stubs" and create an edge, iterate until no more stubs are available
+\textbf{Notes:}
+\item self-loops maybe formed (as $n$ increases this risk is reduced)
+\item creates a different network each time
+\item Node degrees must total to an even number (every edge is both an in and an out)
+
+
+\end{itemize}
+\subsubsection{link selection model}
+Construction: \\
+each time we introduce a new node we first select an edge $(n1,n2)$, and we then randomly attach to one of the nodes ($n1$ or $n2$)
+
+\textbf{Notes:}
+\begin{itemize}
+    \item $P (new \space node\space degree = k) \propto k$ 
+    \item this model is a variant of preferential attachment model
+    \item produces power-law degree distribution with $\alpha=3$
+    \item the $m$’th moment of a power-law degree distribution is well defined (finite) if $m < \alpha-1 $
+    \item  \textbf{mean is not informative} in Power Law networks because of the large variance.
+
+\end{itemize}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+         \textbf{Name}& \textbf{Formula/Symbol}&  Defined if&\textbf{Moment: Meaning}\\
+        \hline
+         Mean& 
+        \( {E}[k] \)=\( \overline{k} = \sum k P(k) \)& 
+         $\alpha>2$
+&1st: Average degree of nodes in the network.\\
+        \hline
+         ?& 
+        \( {E}[k^2] \)=\( \overline{k^2} = \sum k^2 P(k) \)& 
+         $\alpha>3$
+&2nd: Mean squared degree, influences variance\\
+        \hline
+         Skewness-related& 
+        \( {E}[k^3] \)=\( \overline{k^3} = \sum k^3 P(k) \)& 
+         $\alpha>4$
+&3rd: Controls asymmetry of degree distribution\\
+        \hline
+         Kurtosis-related& 
+        \( {E}[k^4] \)=\( \overline{k^4} = \sum k^4 P(k) \)& 
+         $\alpha>5$
+&4th: Measures how heavy the tail of the distribution is\\
+        \hline
+  Variance& \( \sigma^2 = {E}[k^2] - {E}[k]^2 \) & &Spread of the degree distribution  \\\hline
+    \end{tabular}
+    \caption{The first four moments of the degree distribution in networks}
+    \label{tab:moments}
+\end{table}
+\emoji{pushpin} TODO: I think variance and 2nd moment are the same, but the formula doesn't look right.
+
+\subsection{sensitivity to attack and failure in Power Law vs Poisson distributed networks}
+When attacked: Power Law will fail sooner than Poisson
+When random failure: Poisson will fail sooner than Power Law
+
+This is measured by $P_\infty(f)/P_(0)$ which is the probability that a random node is part of the major component when the failure rate is $f\in[0..1]$
+
+Alpha and relation to vulnerability
+\begin{itemize}
+    \item For $\alpha>3$ : $f_c$ is large (the network is more vulnerable).
+    \item For $2<\alpha<3$, $f_c$ is small (the network is highly resilient).
+    \item For $\alpha→2$: The network is \textbf{extremely robust}, meaning it can sustain large random failures.
+\end{itemize}
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass[crop=false]{standalone}
+\usepackage{graphicx} % Required for inserting images
+\graphicspath{{images/}} 
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} %sets the font
+\usepackage{amsmath}
+\usepackage{xcolor}
+\pagecolor[rgb]{0,0,0} %black
+\color[rgb]{0.9,0.9,0.9} %grey
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\urlstyle{same}
+\title{Network Science Notes}
+\author{Ben Hizak}
+\date{January 2025}
+\setlength{\parindent}{0pt}
+\begin{document}
+\maketitle 
+
+
+
+\subsection{Graph Elements / Notation}
+
+Terms Network Science vs. Graph Theory
+
+
+\section{Power Law Networks}
+This means that the \textbf{maximum degree in a power-law network increases as a power-law of the network size n. If $\alpha=3$ the maximum degree increases with the square-root of n.} 
+$k_{max} = k_{min} \, n^{1/(\alpha-1)}$
+\section{Resources}
+\href{https://gatech.instructure.com/courses/433540/modules}{Course Modules}
+\href{https://cazabetremy.fr/Teaching/CN2021/CheatSheet/CN_CS_introduction.pdf}{Cheatsheet}
+\href{https://www.albany.edu/~ravi/pdfs/sol_hw2.pdf}{CSI 445/660 – Network Science – Fall 2015}
+
+
+\end{document}
