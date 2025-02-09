@@ -1,0 +1,67 @@
+\documentclass[crop=false]{standalone}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{blindtext}
+\usepackage{emoji}
+\usepackage{amsmath} %required for binom
+
+\begin{document}
+
+
+\section{lecture 5}
+
+\subsubsection{Clustering Coefficient $C_i$}
+The clustering coefficient of node $i$ is "the fraction of pairs of my friends who are also friends"
+
+$ C_i =\frac{\text{number of neighbors who form triangles with node i}}{\text{all possible pairs of neighbors of} i}= \frac{\frac{1}{2} \, \sum \limits_{j,m} A_{i,j}A_{j,m}A_{m,i}}{\binom {k} {2}} = \frac{\sum \limits_{j,m} A_{i,j}A_{j,m}A_{m,i}}{k_i (k_i-1)} $ where A is the matrix of an undirected, unweighted adjacency matrix $A$. 
+
+If the Clustering Coefficient degree of node-$i$ is \textbf{not well defined when the degree is one or zero}.
+
+We could calculate the \textbf{Average Clustering Coefficient} of this metric for all nodes, but there is a better metric: \textbf{Transitivity}
+
+\textbf{Transitivity (or Global Clustering Coefficient):} the fraction of \textbf{connected triplets} of nodes that form triangles.
+
+Triplets are ordered by the starting node. So a triangle A-B-C is counted 3 times (ABC, BCA, CAB), but not 6 times, which is what I would expect. This is weird and unexplained
+\emoji{pushpin} Triplets is poorly defined in this context
+\\
+\\
+\textbf{Clustering Coefficient in Weighted Networks}
+
+\emoji{pushpin} TODO:Expand this section
+
+Strength of a node is the sum weights of it's edges.
+$s_i = \sum_j A_{i,j} \, w_{i,j}$
+
+The \textbf{Weighted Clustering Coefficient for Node} $i$ is
+
+$C_{w}(i) = \frac{1}{s_i \, (k_i-1)} \sum_{j,h} \frac{w_{i,j}+w_{i,h}}{2} A_{i,j}A_{i,h}A_{j,h}$
+\subsubsection{\emoji{pushpin} TODO: network efficiency (CPL}
+Definition:\\
+Metrics\\
+\subsubsection{\emoji{pushpin} TODOnetwork clustering}
+Definition:\\
+Metrics\\
+\subsubsection{\emoji{pushpin} TODO: small-world}
+Explain differences between “small-world” networks and random/regular/power-law networks 
+Definition:\\
+Metrics
+\subsubsection{\emoji{pushpin} TODO: network clustering}
+Definition:\\
+Metrics\\
+
+\subsubsection{Diameter}
+The diameter is the \textbf{longest} shortest-path distance in the network.
+
+\subsubsection{Characteristic Path Length(CPL), Average (short) Path Length (APL)} 
+is the mean of all shortest paths between node pairs (defined for a connected component).
+The average is always less than the longest. which means \\$\text{CPL} \leq \text{diameter} $
+
+reminder:  $d_{i,j}$ is the shortest-path distance between any two nodes $i$ and $j$.
+
+$L = \frac{2}{n(n-1)} \sum_{i < j} d_{i,j}$ (for undirected graph)
+
+\subsubsection{Network Efficiency}
+$E = \frac{2}{n(n-1)} \sum_{i < j} \frac{1}{d_{i,j}}$ (varies between 0 and 1, also called Harmonic Mean)
+Introduce the "network motifs" concept and define the relevant quantitative metrics
+Explain the significance of “small-world” networks through case studies 
+    \end{document}
